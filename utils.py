@@ -1,0 +1,16 @@
+import math
+import random
+from node import Node
+
+BOUNDS = (0, 3)
+
+def euclidean_heuristic(node1, node2):
+    return math.floor(math.sqrt((node1.x - node2.x)**2 + (node1.y - node2.y)**2))
+
+def generate_random_coordinates():
+    max_size = BOUNDS[1]
+
+    x = random.randint(0, max_size)
+    y = random.randint(0, max_size)
+
+    return x, y
