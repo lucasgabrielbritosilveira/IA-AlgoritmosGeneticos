@@ -1,6 +1,6 @@
 import numpy as np
 import itertools
-from algorithm import genetic_algorithm
+from algorithm.genetic_algorithm import GeneticAlgorithm
 
 # ----------------------- GERAR INSTÂNCIA DO PROBLEMA -----------------------
 def generate_pqa_instance(n, grid_size=30, max_flow=2):
@@ -50,18 +50,23 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
         print(f"  - Crossover: {crossover_type}")
         print(f"  - Mutação: {mutation_type}")
 
-        best_solution, best_cost, cost_history = genetic_algorithm(
+        ga = GeneticAlgorithm(
             n,
             distance_matrix,
             flow_matrix,
-            pop_size,
-            generations,
-            mutation_rate,
+            pop_size=pop_size,
+            generations=generations,
+            mutation_rate=mutation_rate,
             elitism_type=elitism_type,
             selection_type=selection_type,
             crossover_type=crossover_type,
-            mutation_type=mutation_type
+            mutation_type=mutation_type,
+            elite_size=2,
+            min_elite=1,
+            max_elite=5,
         )
+
+        best_solution, best_cost, cost_history = ga.run()
 
         print(f"  ✅ Melhor solução encontrada: {best_solution}")
         print(f"  💰 Custo da melhor solução: {best_cost}")
@@ -70,3 +75,9 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
         results.append((elitism_type, selection_type, crossover_type, mutation_type, best_cost))
 
     return results
+
+results = run_all_combinations()
+
+print("\n📊 Resumo de todas as execuções:")
+for r in results:
+    print(f"Elitismo: {r[0]}, Seleção: {r[1]}, Crossover: {r[2]}, Mutação: {r[3]}, Custo: {r[4]}")
