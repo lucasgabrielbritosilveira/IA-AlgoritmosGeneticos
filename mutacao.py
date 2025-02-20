@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def swap_mutation(individual, mutation_rate=0.1):
     if np.random.rand() < mutation_rate:
         idx1, idx2 = np.random.choice(len(individual), 2, replace=False)

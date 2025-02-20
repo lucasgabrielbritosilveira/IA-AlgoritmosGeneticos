@@ -1,10 +1,17 @@
 import numpy as np
 
-def tournament_selection(population, fitness, k=3):
-    selected = np.random.choice(len(population), k, replace=False)
-    return population[min(selected, key=lambda i: fitness[i])]
+def tournament_selection(population, k=3):
+    tournament = np.random.choice(population, k, replace=False)
+    return min(tournament)
 
-def roulette_wheel_selection(population, fitness):
-    fitness_inv = np.max(fitness) - np.array(fitness) + 1
-    probabilities = fitness_inv / np.sum(fitness_inv)
-    return population[np.random.choice(len(population), p=probabilities)]
+def roulette_wheel_selection(population):
+    fitness_values = np.array([ind.fitness for ind in population])
+
+    max_fitness = np.max(fitness_values)
+    adjusted_fitness = max_fitness - fitness_values + 1  # +1 para evitar zeros
+
+    # Normaliza as probabilidades
+    total_fitness = np.sum(adjusted_fitness)
+    probabilities = adjusted_fitness / total_fitness
+
+    return np.random.choice(population, p=probabilities)
