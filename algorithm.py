@@ -89,11 +89,18 @@ def genetic_algorithm(
             child.calculate_fitness(distance_matrix, flow_matrix)
             new_population.append(child)
 
-        population = new_population
+        population = new_population.copy()
 
         # Update progress bar with current best fitness
         best_fitness = min(population).fitness
         pbar.set_postfix({'Melhor custo': best_fitness})
 
     pbar.close()
-    return min(population).chromosome, min(population).fitness
+
+    # TODO: Create shallow copy of population before do some actions
+
+    cost_history = [int(individual.fitness) for individual in population]
+
+    best_solution = min(population)
+
+    return best_solution.chromosome, best_solution.fitness, cost_history

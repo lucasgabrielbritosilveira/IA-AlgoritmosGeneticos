@@ -50,7 +50,7 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
         print(f"  - Crossover: {crossover_type}")
         print(f"  - Mutação: {mutation_type}")
 
-        best_solution, best_cost = genetic_algorithm(
+        best_solution, best_cost, cost_history = genetic_algorithm(
             n,
             distance_matrix,
             flow_matrix,
@@ -65,6 +65,7 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
 
         print(f"  ✅ Melhor solução encontrada: {best_solution}")
         print(f"  💰 Custo da melhor solução: {best_cost}")
+        print(f"  📈 Histórico de custos: {cost_history}")
 
         results.append((elitism_type, selection_type, crossover_type, mutation_type, best_cost))
 
