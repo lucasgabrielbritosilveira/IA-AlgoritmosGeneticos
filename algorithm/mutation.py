@@ -1,13 +1,17 @@
 import numpy as np
 
 def swap_mutation(individual, mutation_rate=0.1):
+    new_individual = individual.copy()
+
     if np.random.rand() < mutation_rate:
-        idx1, idx2 = np.random.choice(len(individual), 2, replace=False)
-        individual[idx1], individual[idx2] = individual[idx2], individual[idx1]
-    return individual
+        idx1, idx2 = np.random.choice(len(new_individual), 2, replace=False)
+        new_individual[idx1], new_individual[idx2] = new_individual[idx2], new_individual[idx1]
+    return new_individual
 
 def inversion_mutation(individual, mutation_rate=0.1):
+    new_individual = individual.copy()
+
     if np.random.rand() < mutation_rate:
-        start, end = sorted(np.random.choice(len(individual), 2, replace=False))
-        individual[start:end+1] = individual[start:end+1][::-1]
-    return individual
+        start, end = sorted(np.random.choice(len(new_individual), 2, replace=False))
+        new_individual[start:end+1] = new_individual[start:end+1][::-1]
+    return new_individual

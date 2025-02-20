@@ -47,6 +47,7 @@ class GeneticAlgorithm:
     def run(self, show_progress=True):
         # Initialize population
         population = self.initialize_population()
+        cost_history = []
 
         # Calculate initial fitness
         for individual in population:
@@ -104,16 +105,17 @@ class GeneticAlgorithm:
                 child.calculate_fitness(self.distance_matrix, self.flow_matrix)
                 new_population.append(child)
 
-            population = new_population.copy()
+            population = new_population
 
             # Update progress bar with current best fitness
             best_fitness = min(population).fitness
             pbar.set_postfix({'Melhor custo': best_fitness})
 
+            cost_history.append(best_fitness)
+
         pbar.close()
 
-        # TODO: check why the population is something being sorted
-        cost_history = [int(individual.fitness) for individual in population]
         best_solution = min(population)
+        formatted_cost_history = [int(cost) for cost in cost_history]
 
-        return best_solution.chromosome, best_solution.fitness, cost_history
+        return best_solution.chromosome, best_solution.fitness, formatted_cost_history

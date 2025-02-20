@@ -2,7 +2,7 @@ class Individual:
     def __init__(self, chromosome):
         self.chromosome = chromosome
         self.fitness = None
-    # TODO: check if this functions works well
+
     def calculate_fitness(self, dist_matrix, flow_matrix):
         """Calculate fitness (cost) for this individual."""
         if self.fitness is None:
