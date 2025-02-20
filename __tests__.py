@@ -1,5 +1,6 @@
 import numpy as np
 import itertools
+from environment import Environment
 from algorithm.genetic_algorithm import GeneticAlgorithm
 
 # ----------------------- GERAR INSTÂNCIA DO PROBLEMA -----------------------
@@ -8,7 +9,7 @@ def generate_pqa_instance(n, grid_size=30, max_flow=2):
 
     locations = np.random.randint(0, grid_size + 1, size=(n, 2))
 
-    distance_matrix = np.zeros((n, n), dtype=int)
+    distance_matrix = np.zeros((n, n))
     for i in range(n):
         for j in range(i + 1, n):
             distance = np.sqrt((locations[i, 0] - locations[j, 0]) ** 2 +
@@ -36,7 +37,7 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
     ))
 
     # Gerar uma única instância fixa do problema para comparações justas
-    distance_matrix, flow_matrix = generate_pqa_instance(n)
+    distance_matrix, flow_matrix = Environment(n)
 
     results = []  # Lista para armazenar os resultados
 
