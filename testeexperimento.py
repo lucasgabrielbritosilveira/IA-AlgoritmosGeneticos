@@ -1,30 +1,42 @@
 import itertools
+import pandas as pd
+from environment import Environment
 from algorithm.genetic_algorithm import GeneticAlgorithm
 
 def testar_parametros(n, distance_matrix, flow_matrix):
     # Parâmetros a serem testados
     lista_pop_sizes = [50, 100, 150]
     lista_geracoes = [50, 100, 200]
-    lista_elite_sizes = [1, 2, 4]
+    lista_elite_sizes = [1, 2, 3]
     lista_mutation_rates = [0.05, 0.1, 0.15]
     
-    # Gerar todas as combinações possíveis
-    combinacoes = itertools.product(
+    # Calcula total de combinações
+    total_combinacoes = (
+        len(lista_pop_sizes) 
+        * len(lista_geracoes) 
+        * len(lista_elite_sizes) 
+        * len(lista_mutation_rates)
+    )
+    
+    # Gera todas as combinações possíveis
+    combinacoes = list(itertools.product(
         lista_pop_sizes, 
         lista_geracoes, 
         lista_elite_sizes, 
         lista_mutation_rates
-    )
+    ))
     
     resultados = []
     
-    for pop_size, geracoes, elite_size, mutation_rate in combinacoes:
+    # Enumera cada combinação para facilitar rastreamento
+    for idx, (pop_size, geracoes, elite_size, mutation_rate) in enumerate(combinacoes, start=1):
+        print(f"== Execução {idx}/{total_combinacoes} ==")
         print("Executando GA com parâmetros:")
         print(f"  - Tamanho da População: {pop_size}")
-        print(f"  - Número de Gerações: {geracoes}")
-        print(f"  - Elitismo (tamanho fixo): {elite_size}")
-        print(f"  - Taxa de Mutação: {mutation_rate}")
-        print("Inovando e pensando fora da caixinha para obter resultados de alta performance...\n")
+        print(f"  - Número de Gerações:   {geracoes}")
+        print(f"  - Elitismo (tamanho):   {elite_size}")
+        print(f"  - Taxa de Mutação:      {mutation_rate}")
+        print("Crescendo em sinergia e buscando alta performance...\n")
         
         # Instancia o GA com os parâmetros
         ga = GeneticAlgorithm(
@@ -48,6 +60,7 @@ def testar_parametros(n, distance_matrix, flow_matrix):
         
         # Armazena resultado
         resultados.append({
+            "execucao": idx,
             "pop_size": pop_size,
             "geracoes": geracoes,
             "elite_size": elite_size,
@@ -59,11 +72,15 @@ def testar_parametros(n, distance_matrix, flow_matrix):
         print(f"Melhor Custo Encontrado: {best_fitness}")
         print("-"*60)
     
-    # Aqui poderíamos, por exemplo, retornar uma lista de dicionários
-    # ou analisar os resultados de forma mais sofisticada
-    return resultados
+    # Converte a lista de dicionários para DataFrame para facilitar análise
+    df_resultados = pd.DataFrame(resultados)
+    
+    return df_resultados
 
 # Exemplo de chamada (assumindo que distance_matrix e flow_matrix já estejam disponíveis)
-n = len(distance_matrix)  # ou tamanho adequado do problema
-resultados = testar_parametros(n, distance_matrix, flow_matrix)
-print(resultados)
+if __name__ == "__main__":
+    n = 10
+    distance_matrix, flow_matrix = Environment(n)
+    df_final = testar_parametros(n, distance_matrix, flow_matrix)
+    print("\nTabela de Resultados Consolidada:")
+    print(df_final)
