@@ -34,7 +34,7 @@ def testar_parametros(n, distance_matrix, flow_matrix):
             pop_size=pop_size,
             generations=geracoes,
             mutation_rate=mutation_rate,
-            elitism_type="fixed",       # Ajuste se quiser testar "adaptive"
+            elitism_type="simple",       # Ajuste se quiser testar "adaptive"
             selection_type="tournament",# Ajuste se quiser testar "roulette"
             crossover_type="ox",        # Ajuste se quiser testar "pmx"
             mutation_type="swap",       # Ajuste se quiser testar "inversion"
