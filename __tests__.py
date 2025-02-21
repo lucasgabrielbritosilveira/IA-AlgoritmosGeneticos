@@ -26,7 +26,7 @@ def run_all_combinations(n=31, pop_size=50, generations=100, mutation_rate=0.1):
     """Executa o Algoritmo Genético para todas as combinações possíveis de parâmetros."""
 
     # Definição das opções para cada parâmetro
-    elitism_options = ["fixed", "adaptive"]
+    elitism_options = ["percent", "adaptive"]
     selection_options = ["tournament", "roulette"]
     crossover_options = ["ox", "pmx"]
     mutation_options = ["swap", "inversion"]

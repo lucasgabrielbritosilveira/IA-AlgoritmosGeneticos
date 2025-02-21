@@ -3,7 +3,7 @@ from tqdm import tqdm
 from algorithm.selection import tournament_selection, roulette_wheel_selection
 from algorithm.crossover import order_crossover, pmx_crossover
 from algorithm.mutation import inversion_mutation, swap_mutation
-from algorithm.elitism import adaptive_elitism, fixed_elitism
+from algorithm.elitism import adaptive_elitism, elitism_rate
 from algorithm.individual import Individual
 
 # TODO: evaluate and maybe change the crossovers, elitims, mutations and selections
@@ -16,11 +16,11 @@ class GeneticAlgorithm:
         pop_size=50,
         generations=100,
         mutation_rate=0.1,
-        elitism_type="fixed",
+        elitism_type="percent",
         selection_type="tournament",
         crossover_type="ox",
         mutation_type="swap",
-        elite_size=2,
+        elite_rate=0.1,
         min_elite=1,
         max_elite=5,
     ):
@@ -34,7 +34,7 @@ class GeneticAlgorithm:
         self.selection_type = selection_type
         self.crossover_type = crossover_type
         self.mutation_type = mutation_type
-        self.elite_size = elite_size
+        self.elite_rate = elite_rate
         self.min_elite = min_elite
         self.max_elite = max_elite
 
@@ -62,12 +62,12 @@ class GeneticAlgorithm:
             new_population = []
 
             # Handle elitism
-            if self.elitism_type == "fixed":
-                elites = fixed_elitism(population, self.elite_size)
+            if self.elitism_type == "percent":
+                elites = elitism_rate(population, self.elite_rate)
             elif self.elitism_type == "adaptive":
                 elites, prev_best_cost = adaptive_elitism(population, prev_best_cost, self.min_elite, self.max_elite)
             else:
-                raise ValueError("Elitismo inválido. Use 'fixed' ou 'adaptive'.")
+                raise ValueError("Elitismo inválido. Use 'percent' ou 'adaptive'.")
 
             new_population.extend(elites)
 
