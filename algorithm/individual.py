@@ -8,8 +8,8 @@ class Individual:
         if self.fitness is None:
             self.fitness = 0
             size = len(self.chromosome)
-            for i in range(size):
-                for j in range(size):
+            for i in range(size - 1):
+                for j in range(i, size):
                     self.fitness += (dist_matrix[i][j] * 
                                    flow_matrix[self.chromosome[i]][self.chromosome[j]])
         return self.fitness
