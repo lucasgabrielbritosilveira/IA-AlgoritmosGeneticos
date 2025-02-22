@@ -2,7 +2,7 @@ import time
 from algorithm.genetic_algorithm import GeneticAlgorithm
 from environment.environment import Environment
 
-def run_experiment(configurations, pop_size=50, generations=100, elite_rate=0.1, 
+def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2, 
                   mutation_rate=0.1, n=10, repeat=20, parameter_to_display=None):
 
     results = []
