@@ -7,17 +7,17 @@ from environment.environment import Environment
 
 
 def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga.csv"):
-    # Garante que a pasta 'results' existe no mesmo nível de 'experiments'
+
     results_dir = os.path.join(os.path.dirname(__file__), '..', 'results')
     os.makedirs(results_dir, exist_ok=True)
 
     output_path = os.path.join(results_dir, output_csv)
 
     # Parâmetros a serem testados
-    lista_pop_sizes = [50, 100, 150]
+    lista_pop_sizes = [50, 100, 200]
     lista_geracoes = [50, 100, 200]
-    lista_elite_rates = [0.05, 0.1, 0.15]
-    lista_mutation_rates = [0.05, 0.1, 0.15]
+    lista_elite_rates = [0.05, 0.1, 0.20]
+    lista_mutation_rates = [0.05, 0.1, 0.20]
 
     # Gera todas as combinações possíveis
     combinacoes = itertools.product(
