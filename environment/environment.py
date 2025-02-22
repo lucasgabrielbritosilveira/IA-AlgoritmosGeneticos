@@ -1,5 +1,6 @@
 import numpy as np
-from utils import *
+from environment.utils import *
+from environment.node import Node
 
 def Environment(n = 3, grid_size=30, max_flow=2):
     distance_matrix = []
