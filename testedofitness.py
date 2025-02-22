@@ -1,7 +1,6 @@
 import pandas as pd
-from environment import Environment
+from environment.environment import Environment
 from algorithm.genetic_algorithm import GeneticAlgorithm
-import random
 
 
 # Matrizes do enunciado do trabalho
