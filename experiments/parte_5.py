@@ -12,9 +12,9 @@ def run():
     n = 10
 
     while True:
-      print(run_experiment(
+      run_experiment(
           n=n,
           configurations=configurations,
           repeat=1
-      ))
+      )
       n += STEP

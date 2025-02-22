@@ -45,6 +45,17 @@ def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2
             end_time = time.time()
             exec_time = end_time - start_time
 
-            results.append((best_fitness, best_chromosome, cost_history, exec_time))
+            best_gen = cost_history.index(min(cost_history))
+
+            results.append({
+              "pop_size": pop_size,
+              "geracoes": generations,
+              "elite_rate": elite_rate,
+              "mutation_rate": mutation_rate,
+              "melhor_solucao": best_chromosome,
+              "melhor_custo": best_fitness,
+              "tempo_execucao_s": exec_time,
+              "geracao_melhor_custo":best_gen
+            })
 
     return results
