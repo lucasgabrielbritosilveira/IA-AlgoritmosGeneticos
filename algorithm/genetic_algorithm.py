@@ -1,12 +1,11 @@
 import numpy as np
 from tqdm import tqdm
 from algorithm.selection import tournament_selection, roulette_wheel_selection
-from algorithm.crossover import order_crossover, pmx_crossover
-from algorithm.mutation import inversion_mutation, swap_mutation
+from algorithm.crossover import cycle_crossover, maximal_preservation_crossover
+from algorithm.mutation import insertion_mutation, swap_mutation
 from algorithm.elitism import elitism_simple, elitism_tournament
 from algorithm.individual import Individual
 
-# TODO: evaluate and maybe change the crossovers, elitims, mutations and selections
 class GeneticAlgorithm:
     def __init__(
         self,
@@ -18,7 +17,7 @@ class GeneticAlgorithm:
         mutation_rate=0.1,
         elitism_type="simple",
         selection_type="tournament",
-        crossover_type="ox",
+        crossover_type="cx",
         mutation_type="swap",
         elite_rate=0.1,
         min_elite=1,
@@ -53,8 +52,6 @@ class GeneticAlgorithm:
         for individual in population:
             individual.calculate_fitness(self.distance_matrix, self.flow_matrix)
 
-        prev_best_cost = min(population).fitness
-
         # Criar barra de progresso
         pbar = tqdm(range(self.generations), disable=not show_progress, desc="🔄 Progresso da Evolução", unit="gen")
 
@@ -83,29 +80,32 @@ class GeneticAlgorithm:
                     raise ValueError("Seleção inválida. Use 'tournament' ou 'roulette'.")
 
                 # Apply crossover
-                if self.crossover_type == "ox":
-                    child_chromosome = order_crossover(parent1.chromosome, parent2.chromosome)
-                elif self.crossover_type == "pmx":
-                    child_chromosome = pmx_crossover(parent1.chromosome, parent2.chromosome)
+                if self.crossover_type == "cx":
+                    child1, child2 = cycle_crossover(parent1.chromosome, parent2.chromosome)
+                elif self.crossover_type == "mpx":
+                    child1, child2 = maximal_preservation_crossover(parent1.chromosome, parent2.chromosome)
                 else:
-                    raise ValueError("Crossover inválido. Use 'ox' ou 'pmx'.")
+                    raise ValueError("Crossover inválido. Use 'cx' ou 'mpx'")
 
-                # Create new individual
-                child = Individual(child_chromosome)
+                offspring1 = Individual(child1)
+                offspring2 = Individual(child2)
 
                 # Apply mutation
                 if self.mutation_type == "swap":
-                    child.chromosome = swap_mutation(child.chromosome, self.mutation_rate)
-                elif self.mutation_type == "inversion":
-                    child.chromosome = inversion_mutation(child.chromosome, self.mutation_rate)
+                    offspring1.chromosome = swap_mutation(offspring1.chromosome, self.mutation_rate)
+                    offspring2.chromosome = swap_mutation(offspring2.chromosome, self.mutation_rate)
+                elif self.mutation_type == "insertion":
+                    offspring1.chromosome = insertion_mutation(offspring1.chromosome, self.mutation_rate)
+                    offspring2.chromosome = insertion_mutation(offspring2.chromosome, self.mutation_rate)
                 else:
-                    raise ValueError("Mutação inválida. Use 'swap' ou 'inversion'.")
+                    raise ValueError("Mutação inválida. Use 'swap' ou 'insertion'.")
 
-                # Calculate fitness for new individual
-                child.calculate_fitness(self.distance_matrix, self.flow_matrix)
-                new_population.append(child)
+                offspring1.calculate_fitness(self.distance_matrix, self.flow_matrix)
+                offspring2.calculate_fitness(self.distance_matrix, self.flow_matrix)
 
-            population = new_population
+                new_population.extend([offspring1, offspring2])
+
+            population = new_population[:self.pop_size]
 
             # Update progress bar with current best fitness
             best_fitness = min(population).fitness

@@ -1,20 +1,20 @@
 import itertools
 import pandas as pd
-from environment import Environment
+from environment.environment import Environment
 from algorithm.genetic_algorithm import GeneticAlgorithm
 
 def testar_parametros(n, distance_matrix, flow_matrix):
     # Parâmetros a serem testados
     lista_pop_sizes = [50, 100, 150]
     lista_geracoes = [50, 100, 200]
-    lista_elite_sizes = [1, 2, 3]
+    lista_elite_rates = [1, 2, 3]
     lista_mutation_rates = [0.05, 0.1, 0.15]
     
     # Calcula total de combinações
     total_combinacoes = (
         len(lista_pop_sizes) 
         * len(lista_geracoes) 
-        * len(lista_elite_sizes) 
+        * len(lista_elite_rates) 
         * len(lista_mutation_rates)
     )
     
@@ -22,19 +22,19 @@ def testar_parametros(n, distance_matrix, flow_matrix):
     combinacoes = list(itertools.product(
         lista_pop_sizes, 
         lista_geracoes, 
-        lista_elite_sizes, 
+        lista_elite_rates, 
         lista_mutation_rates
     ))
     
     resultados = []
     
     # Enumera cada combinação para facilitar rastreamento
-    for idx, (pop_size, geracoes, elite_size, mutation_rate) in enumerate(combinacoes, start=1):
+    for idx, (pop_size, geracoes, elite_rate, mutation_rate) in enumerate(combinacoes, start=1):
         print(f"== Execução {idx}/{total_combinacoes} ==")
         print("Executando GA com parâmetros:")
         print(f"  - Tamanho da População: {pop_size}")
         print(f"  - Número de Gerações:   {geracoes}")
-        print(f"  - Elitismo (tamanho):   {elite_size}")
+        print(f"  - Elitismo (tamanho):   {elite_rate}")
         print(f"  - Taxa de Mutação:      {mutation_rate}")
         print("Crescendo em sinergia e buscando alta performance...\n")
         
@@ -49,8 +49,8 @@ def testar_parametros(n, distance_matrix, flow_matrix):
             elitism_type="simple",       # Ajuste se quiser testar "adaptive"
             selection_type="tournament",# Ajuste se quiser testar "roulette"
             crossover_type="ox",        # Ajuste se quiser testar "pmx"
-            mutation_type="swap",       # Ajuste se quiser testar "inversion"
-            elite_size=elite_size,
+            mutation_type="swap",       # Ajuste se quiser testar "insertion"
+            elite_rate=elite_rate,
             min_elite=1,
             max_elite=5
         )
@@ -63,7 +63,7 @@ def testar_parametros(n, distance_matrix, flow_matrix):
             "execucao": idx,
             "pop_size": pop_size,
             "geracoes": geracoes,
-            "elite_size": elite_size,
+            "elite_rate": elite_rate,
             "mutation_rate": mutation_rate,
             "melhor_solucao": best_chromosome,
             "melhor_custo": best_fitness,
