@@ -16,7 +16,7 @@ def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga
     # Parâmetros a serem testados
     lista_pop_sizes = [50, 100, 150]
     lista_geracoes = [50, 100, 200]
-    lista_elite_rates = [1, 2, 4]
+    lista_elite_rates = [0.05, 0.1, 0.15]
     lista_mutation_rates = [0.05, 0.1, 0.15]
 
     # Gera todas as combinações possíveis
@@ -60,6 +60,9 @@ def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga
         end_time = time.time()
         tempo_execucao = end_time - start_time
 
+
+        geracao_melhor_custo = cost_history.index(min(cost_history))
+
         # Armazena resultado
         resultados.append({
             "pop_size": pop_size,
@@ -69,11 +72,14 @@ def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga
             "melhor_solucao": best_chromosome,
             "melhor_custo": best_fitness,
             "tempo_execucao_s": tempo_execucao,
+            "geracao_melhor_custo":geracao_melhor_custo
         })
         # print(cost_history)
         print(f"Melhor Custo Encontrado: {best_fitness}")
         print(f"Tempo de Execução: {tempo_execucao:.2f} segundos")
+        print(f"  📈 Histórico de custos: {cost_history}")
         print("-" * 60)
+
 
     # Salva os resultados em um CSV dentro da pasta 'results'
     df_resultados = pd.DataFrame(resultados)
