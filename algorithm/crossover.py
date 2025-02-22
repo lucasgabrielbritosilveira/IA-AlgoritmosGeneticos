@@ -61,7 +61,6 @@ def cycle_crossover(parent1, parent2):
 
     return child1, child2
 
-
 def maximal_preservation_crossover(parent1, parent2):
     size = len(parent1)
     child1 = np.full(size, -1)
