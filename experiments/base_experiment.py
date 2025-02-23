@@ -3,7 +3,8 @@ from algorithm.genetic_algorithm import GeneticAlgorithm
 from environment.environment import Environment
 
 def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2, 
-                  mutation_rate=0.1, n=10, repeat=20, parameter_to_display=None):
+                  mutation_rate=0.1, n=10, repeat=20, parameter_to_display=None,
+                  min_elite=1, max_elite=5):
 
     results = []
 
@@ -36,8 +37,8 @@ def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2
                 crossover_type=configuration['crossover'],
                 mutation_type=configuration['mutation'],
                 elite_rate=elite_rate,
-                min_elite=1,
-                max_elite=5
+                min_elite=min_elite,
+                max_elite=max_elite
             )
 
             start_time = time.time()

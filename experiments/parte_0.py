@@ -6,7 +6,7 @@ from algorithm.genetic_algorithm import GeneticAlgorithm
 from environment.environment import Environment
 
 
-def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga.csv"):
+def testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_experimento0.csv"):
 
     results_dir = os.path.join(os.path.dirname(__file__), '..', 'results')
     os.makedirs(results_dir, exist_ok=True)

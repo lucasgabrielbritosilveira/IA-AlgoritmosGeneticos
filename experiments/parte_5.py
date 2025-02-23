@@ -3,18 +3,19 @@ from itertools import chain
 from experiments.base_experiment import run_experiment
 
 def run():
+    # Melhores configurações dos experimentos do 1 - 4
     configurations = [
         {"selection": "tournament", "crossover": "cx", "elitism": "simple", "mutation": "swap"},
-        {"selection": "tournament", "crossover": "mpx", "elitism": "simple", "mutation": "swap"},
-        {"selection": "tournament", "crossover": "cx", "elitism": "tournament", "mutation": "swap"},
-        {"selection": "tournament", "crossover": "cx", "elitism": "simple", "mutation": "insertion"},
+        {"selection": "roulette", "crossover": "cx", "elitism": "simple", "mutation": "insertion"},
+        {"selection": "roulette", "crossover": "cx", "elitism": "simple", "mutation": "swap"},
+        {"selection": "tournament", "crossover": "mpx", "elitism": "tournament", "mutation": "swap"}
     ]
 
     n = 10
     results = []
 
     MAX_N = 200
-    STEP = 10 # troque para 1 se for apenas de 1 em 1
+    STEP = 10 # troque para 1 se desejar apenas de 1 em 1
 
     while n <= MAX_N:
         result = run_experiment(
