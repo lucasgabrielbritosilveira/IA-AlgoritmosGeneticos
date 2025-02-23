@@ -3,8 +3,8 @@ import pandas as pd
 
 def run():
     configurations = [
-        {"selection": "roulette", "crossover": "cx", "elitism": "simple", "mutation": "swap"},
-        {"selection": "roulette", "crossover": "mpx", "elitism": "simple", "mutation": "swap"}
+        {"selection": "roulette", "crossover": "cx", "elitism": "simple", "mutation": "insertion"},
+        {"selection": "roulette", "crossover": "mpx", "elitism": "simple", "mutation": "insertion"}
     ]
 
     results = run_experiment(
