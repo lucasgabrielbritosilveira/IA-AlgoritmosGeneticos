@@ -4,12 +4,12 @@ from environment.environment import Environment
 
 def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2, 
                   mutation_rate=0.1, n=10, repeat=20, parameter_to_display=None,
-                  min_elite=1, max_elite=5):
+                  min_elite=1, max_elite=5, grid_size=30):
 
     results = []
 
     for i in range(repeat):
-        distance_matrix, flow_matrix = Environment(n)
+        distance_matrix, flow_matrix = Environment(n, grid_size=grid_size)
 
         for configuration in configurations:
             param_value = configuration[parameter_to_display] if parameter_to_display else None
@@ -23,6 +23,8 @@ def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2
             print(f"  - Número de Gerações: {generations}")
             print(f"  - Elitismo (tamanho fixo): {elite_rate}")
             print(f"  - Taxa de Mutação: {mutation_rate}")
+            print(f"  - Min Elite: {min_elite}")
+            print(f"  - Max Elite: {max_elite}")
             print("Inovando e pensando fora da caixinha para obter resultados de alta performance...\n")
 
             ga = GeneticAlgorithm(

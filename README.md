@@ -1,26 +1,30 @@
 # IA-AlgoritmosGeneticos
 
+## Equipe: 
+    - Guilherme Girão Alves
+    - Lucas Gabriel
+    - Carlos Samuel
 
-TODO:
-EXPERIMENTOS
-RELATORIO
+## Requisito para a Execução:
+    - Python 3
 
-VALIDAR AMBIENTE [OK]
-COLOCAR TAXA DE ELITISMO(PORCENTAGEM) [OK]
-PESQUISAR METODOS DE ELITISMO [OK]
-PRECISAMOS RODAR O ALGORITMO NA PASTA /experiments [OK]
+## Guia de novo usuário:
+### Caso prefira instalar somente as bibliotecas selecionadas:
+    - pip install matplotlib
+    - pip install pandas
+    - pip install jupyter
+    - pip install numpy
 
-METODOS DO ALGORITMO [OK]:
-- Elitismo: ? e ?
-- Seleção:
-  - Torneio (do jeito que tá)
-  - Roleta (do jeito que tá)
-- Crossover:
-  - Cycle Crossover
-  - Maximal Preservation Crossover
-  - Fonte: https://www.linkedin.com/pulse/crossovers-genetic-algorithms-ali-karazmoodeh-tthjf/
-  - Fonte: https://en.wikipedia.org/wiki/Crossover_(evolutionary_algorithm)
-- Mutation:
-  - Swap = Dupla Troca (tem no livro - Computação evolucionária) (do jeito que tá)
-  - Displacement Mutation
-  - Para o método 2, o livro trás a inversão também, mas tem essa fonte com outros métodos: https://www.linkedin.com/pulse/mutations-genetic-algorithms-ali-karazmoodeh-u94pf/
+### Caso prefira instalar todas:
+    - pip install -r requirements.txt
+
+## Como rodar a main?
+No terminal no projeto, rode:
+```shell
+$ python main.py
+```
+
+E irá aparecer o menu para escolher qual experimento rodar ou se prefere rodar a execução de forma livre. Para verificar os gráficos e análises comparativas, você pode ir na pasta `/results`, ir no notebook do experimento desejado e trocar o arquivo na variável `caminho_csv`. Os arquivos `/results/resultados_experimento[0-5]MOCADO.csv` são os arquivos os quais usamos nos nossos experimentos e obtivemos os resultados.
+
+![Exemplo main](exemplo-main.png)
+![Exemplo de Execução do Experimento 4](exemplo-execucao-4.png)

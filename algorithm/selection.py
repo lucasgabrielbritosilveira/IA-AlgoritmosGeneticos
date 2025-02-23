@@ -1,8 +1,9 @@
 import numpy as np
 
 def tournament_selection(population, k=3):
+    # Seleciona aleatoriamente k indivíduos da população
     tournament = np.random.choice(population, k, replace=False)
-    return min(tournament)
+    return min(tournament)  # Retorna o melhor indivíduo do torneio
 
 def roulette_wheel_selection(population):
     fitness_values = np.array([ind.fitness for ind in population])
@@ -14,4 +15,4 @@ def roulette_wheel_selection(population):
     total_fitness = np.sum(adjusted_fitness)
     probabilities = adjusted_fitness / total_fitness
 
-    return np.random.choice(population, p=probabilities)
+    return np.random.choice(population, p=probabilities)  # Retorna um indivíduo com base nas probabilidades
