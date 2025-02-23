@@ -15,14 +15,14 @@ from experiments.parte_5 import run as Experiment5Run
 # resultados = testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga.csv")
 #-------------------------------
 # Parâmetros iniciais
-n = 10
+n = 2
 distance_matrix, flow_matrix = Environment(n)
 
 # Executar o teste e salvar o CSV na pasta 'results'
 # resultados = testar_parametros(n, distance_matrix, flow_matrix, output_csv="resultados_ga.csv")
 
-Experiment1Run()
+# Experiment1Run()
 # Experiment2Run()
-# Experiment3Run()
-# Experiment4Run()
+Experiment3Run()
+Experiment4Run()
 # Experiment5Run()

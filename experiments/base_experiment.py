@@ -55,7 +55,12 @@ def run_experiment(configurations, pop_size=100, generations=100, elite_rate=0.2
               "melhor_solucao": best_chromosome,
               "melhor_custo": best_fitness,
               "tempo_execucao_s": exec_time,
-              "geracao_melhor_custo":best_gen
+              "geracao_melhor_custo":best_gen, 
+              "configuracao": configuration,
+              "elitism": configuration["elitism"],
+              "selection": configuration["selection"],
+              "crossover": configuration["crossover"],
+              "mutation": configuration["mutation"]
             })
 
     return results
