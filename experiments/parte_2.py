@@ -3,10 +3,10 @@ import pandas as pd
 
 def run():
     configurations = [
-        {"selection": "tournament", "crossover": "cx", "elitism": "simple", "mutation": "swap"},
-        {"selection": "tournament", "crossover": "mpx", "elitism": "simple", "mutation": "swap"}
+        {"selection": "roulette", "crossover": "cx", "elitism": "simple", "mutation": "swap"},
+        {"selection": "roulette", "crossover": "mpx", "elitism": "simple", "mutation": "swap"}
     ]
-    
+
     results = run_experiment(
         configurations=configurations,
         parameter_to_display="crossover"
