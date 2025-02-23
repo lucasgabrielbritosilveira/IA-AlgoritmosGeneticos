@@ -4,7 +4,7 @@ class Individual:
         self.fitness = None
 
     def calculate_fitness(self, dist_matrix, flow_matrix):
-        """Calculate fitness (cost) for this individual."""
+        """Calcula o fitness para este indivíduo."""
         if self.fitness is None:
             self.fitness = 0
             size = len(self.chromosome)

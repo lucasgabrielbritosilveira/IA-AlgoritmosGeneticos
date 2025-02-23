@@ -15,19 +15,21 @@ def run():
     results = []
 
     MAX_N = 200
-    STEP = 10 # troque para 1 se desejar apenas de 1 em 1
+    STEP = 10
 
+    # Executa o experimento para diferentes tamanhos de entrada
     while n <= MAX_N:
         result = run_experiment(
             n=n,
+            grid_size=MAX_N,  # Tamanho da Grid acompanhando N para não haver repetições
             configurations=configurations,
             repeat=1
         )
 
         results.append(result)
-
         n += STEP
 
+    # Salva os resultados em um CSV
     df_resultados = pd.DataFrame(list(chain.from_iterable(results)))
     output = 'results/resultados_experimento5.csv'
     df_resultados.to_csv(output, index=False)

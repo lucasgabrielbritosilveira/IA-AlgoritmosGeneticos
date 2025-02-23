@@ -16,10 +16,10 @@ def run_all_combinations(n=30, pop_size=50, generations=100, mutation_rate=0.1):
         elitism_options, selection_options, crossover_options, mutation_options
     ))
 
-    # Gerar uma única instância fixa do problema para comparações justas
+    # Gerar uma única instância fixa do problema
     distance_matrix, flow_matrix = Environment(n)
 
-    results = []  # Lista para armazenar os resultados
+    results = []
 
     # Executar todas as combinações
     for params in param_combinations:
@@ -49,9 +49,9 @@ def run_all_combinations(n=30, pop_size=50, generations=100, mutation_rate=0.1):
 
         best_solution, best_cost, cost_history = ga.run()
 
-        print(f"  ✅ Melhor solução encontrada: {best_solution}")
-        print(f"  💰 Custo da melhor solução: {best_cost}")
-        print(f"  📈 Histórico de custos: {cost_history}")
+        print(f"Melhor solução encontrada: {best_solution}")
+        print(f"Custo da melhor solução: {best_cost}")
+        print(f"Histórico de custos: {cost_history}")
 
         results.append((elitism_type, selection_type, crossover_type, mutation_type, best_cost))
 
@@ -59,6 +59,6 @@ def run_all_combinations(n=30, pop_size=50, generations=100, mutation_rate=0.1):
 
 results = run_all_combinations()
 
-print("\n📊 Resumo de todas as execuções:")
+print("\nResumo de todas as execuções:")
 for r in results:
     print(f"Elitismo: {r[0]}, Seleção: {r[1]}, Crossover: {r[2]}, Mutação: {r[3]}, Custo: {r[4]}")

@@ -40,15 +40,15 @@ class GeneticAlgorithm:
     def initialize_population(self):
         """Gera uma população inicial diversa de indivíduos."""
         chromosomes = [np.random.permutation(self.n) for _ in range(self.pop_size)]
-        np.random.shuffle(chromosomes)  # Misturar para mais diversidade
+        np.random.shuffle(chromosomes)  # Mistura para mais diversidade
         return [Individual(chromosome) for chromosome in chromosomes]
 
     def run(self, show_progress=True):
-        # Initialize population
+        # Inicializa a população
         population = self.initialize_population()
         cost_history = []
 
-        # Calculate initial fitness
+        # Calcula a aptidão inicial
         for individual in population:
             individual.calculate_fitness(self.distance_matrix, self.flow_matrix)
 
@@ -58,7 +58,7 @@ class GeneticAlgorithm:
         for _ in pbar:
             new_population = []
 
-            # Handle elitism
+            # Trata o elitismo
             if self.elitism_type == "simple":
                 elites = elitism_simple(population, self.elite_rate)
             elif self.elitism_type == "tournament":
@@ -68,7 +68,7 @@ class GeneticAlgorithm:
 
             new_population.extend(elites)
 
-            # Generate new individuals
+            # Gera novos indivíduos
             while len(new_population) < self.pop_size:
                 if self.selection_type == "tournament":
                     parent1 = tournament_selection(population)
@@ -79,7 +79,7 @@ class GeneticAlgorithm:
                 else:
                     raise ValueError("Seleção inválida. Use 'tournament' ou 'roulette'.")
 
-                # Apply crossover
+                # Aplica o crossover
                 if self.crossover_type == "cx":
                     child1, child2 = cycle_crossover(parent1.chromosome, parent2.chromosome)
                 elif self.crossover_type == "mpx":
@@ -90,7 +90,7 @@ class GeneticAlgorithm:
                 offspring1 = Individual(child1)
                 offspring2 = Individual(child2)
 
-                # Apply mutation
+                # Aplica a mutação
                 if self.mutation_type == "swap":
                     offspring1.chromosome = swap_mutation(offspring1.chromosome, self.mutation_rate)
                     offspring2.chromosome = swap_mutation(offspring2.chromosome, self.mutation_rate)
@@ -107,7 +107,7 @@ class GeneticAlgorithm:
 
             population = new_population[:self.pop_size]
 
-            # Update progress bar with current best fitness
+            # Atualiza a barra de progresso com o melhor fitness
             best_fitness = min(population).fitness
             pbar.set_postfix({'Melhor custo': best_fitness})
 
@@ -118,4 +118,5 @@ class GeneticAlgorithm:
         best_solution = min(population)
         formatted_cost_history = [int(cost) for cost in cost_history]
 
+        # Retorna a solução
         return best_solution.chromosome, best_solution.fitness, formatted_cost_history
